@@ -4,8 +4,8 @@ import { Navbar, Nav } from "react-bootstrap";
 import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import Search from './Pages/Search';
-import SignOut from './Pages/Signout';
 
+const signOut = () => {};
 function App() {
   return (
     <div>
@@ -18,7 +18,7 @@ function App() {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                 <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
                 <Nav.Link as={Link} to="/search">Search</Nav.Link>
-                <Nav.Link as={Link} to="/signout">Sign Out</Nav.Link>
+                <Nav.Link onClick={signOut} as={Link} to="/">Sign Out</Nav.Link>
               </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -26,7 +26,6 @@ function App() {
           <Route exact path="/"><Home /></Route>
           <Route path="/profile"><Profile /></Route>
           <Route path="/search"><Search /></Route>
-          <Route path="/signout"><SignOut /></Route>
           </Switch>
         </BrowserRouter>
     </div>

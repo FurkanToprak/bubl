@@ -18,15 +18,15 @@ function Home() {
               <Col
                 style={{
                   backgroundColor: i % 2 === 0 ? "white" : "black",
-                }}>1</Col>
+                }}>{i}-1</Col>
                 <Col
                 style={{
                   backgroundColor: i % 2 === 0 ? "red" : "blue",
-                }}>2</Col>
+                }}>{i}-2</Col>
               <Col
                 style={{
                   backgroundColor: i % 2 === 0 ? "purple" : "yellow",
-                }}>3</Col>
+                }}>{i}-3</Col>
             </Row>
           );
         })}
