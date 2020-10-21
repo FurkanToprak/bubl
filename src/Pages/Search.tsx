@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import {
   Form,
   Button,
@@ -11,9 +11,6 @@ import {
 } from "react-bootstrap";
 
 function Search() {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
-
   return (
     <div>
       <h1
