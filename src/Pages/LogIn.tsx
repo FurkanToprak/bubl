@@ -6,7 +6,7 @@ export default function LogIn() {
     <div style={{ backgroundColor: "#CAF1FE", flex: 1 }}>
       <Jumbotron
         style={{
-          marginTop: 200,
+          marginTop: 100,
           width: "50%",
           marginLeft: "auto",
           marginRight: "auto",
@@ -20,7 +20,8 @@ export default function LogIn() {
             marginLeft: "auto",
             marginRight: "auto",
             display: "block",
-            color: "white"
+            color: "white",
+            fontSize: "2rem",
           }}
         >bubl</div>
       </Jumbotron>
