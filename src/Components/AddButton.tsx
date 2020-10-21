@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 const unClickedColor = "#69B1BF";
-const clickedColor = "#518f9c";
+const clickedColor = "#CAF1FE";
 
 export default function AddButton() {
   const addCard = () => {};

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Switch, Link, Route } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import Home from "./Pages/Home";
 import Search from "./Pages/Search";
 import LogIn from "./Pages/LogIn";
 
-const signOut = () => {};
 function App() {
-  const isSignedIn = false;
+  const [isSignedIn, setIsSignedIn ] = useState(false);
   return (
     <div
       style={{
         backgroundColor: "#F0F0F0",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%"
       }}
     >
       <BrowserRouter>
@@ -41,7 +43,7 @@ function App() {
                   <Nav.Link as={Link} to="/search">
                     search
                   </Nav.Link>
-                  <Nav.Link onClick={signOut} as={Link} to="/">
+                  <Nav.Link onClick={() => setIsSignedIn(false)} as={Link} to="/">
                     sign out
                   </Nav.Link>
                 </Nav>
@@ -50,12 +52,18 @@ function App() {
           )}
         </Navbar>
         <Switch>
-          <Route exact path="/">
-            {isSignedIn ? <Home /> : <LogIn />}
-          </Route>
-          <Route path="/search">
-            <Search />
-          </Route>
+          {isSignedIn ? (
+            <>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/search">
+                <Search />
+              </Route>
+            </>
+          ) : (
+            <Route path="/*"><LogIn/></Route>
+          )}
         </Switch>
       </BrowserRouter>
     </div>
