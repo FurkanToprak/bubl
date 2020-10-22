@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import AddButton from "./AddButton";
+import Grid from "./Grid";
+import Card from "./dnd/Card";
+import { DndProvider } from "react-dnd";
+import MultiBackend from "react-dnd-multi-backend";
+import HTML5toTouch from "./dnd/HTML5toTouch";
 
 interface CardMetadata {
   id: number;
@@ -222,10 +227,6 @@ function sortItems(a: CardMetadata, b: CardMetadata) {
   return a.index - b.index;
 }
 
-function getContent() {
-  return <div></div>;
-}
-
 function Board() {
   const [list, setList] = useState(initialItems);
 
@@ -240,7 +241,6 @@ function Board() {
     setList(newList);
   };
 
-  const content = getContent();
   return (
     <div
       style={{
@@ -250,7 +250,15 @@ function Board() {
       <div style={{ paddingTop: 20, paddingBottom: 20 }}>
         <AddButton />
       </div>
-      <div>{content}</div>
+      <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
+        <Grid>
+          {list.sort(sortItems).map((item) => (
+            <Card key={item.id} item={item} onDrop={onDrop}>
+              {item.content}
+            </Card>
+          ))}
+        </Grid>
+      </DndProvider>
     </div>
   );
 }
