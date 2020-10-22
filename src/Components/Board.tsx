@@ -242,11 +242,7 @@ function Board() {
   };
 
   return (
-    <div
-      style={{
-        height: 3000,
-      }}
-    >
+    <div style={{ backgroundColor: "#F0F0F0" }}>
       <div style={{ paddingTop: 20, paddingBottom: 20 }}>
         <AddButton />
       </div>

@@ -3,7 +3,12 @@ import { Jumbotron, Button } from "react-bootstrap";
 
 export default function LogIn() {
   return (
-    <div style={{ backgroundColor: "#CAF1FE", flex: 1 }}>
+    <div
+      style={{
+        backgroundColor: "#CAF1FE",
+        flex: 1,
+      }}
+    >
       <Jumbotron
         style={{
           marginTop: 100,
@@ -23,7 +28,9 @@ export default function LogIn() {
             color: "white",
             fontSize: "2rem",
           }}
-        >bubl</div>
+        >
+          bubl
+        </div>
       </Jumbotron>
 
       <Jumbotron

@@ -10,10 +10,9 @@ function App() {
   return (
     <div
       style={{
-        backgroundColor: "#F0F0F0",
         display: "flex",
         flexDirection: "column",
-        height: "100%"
+        height: "100%",
       }}
     >
       <BrowserRouter>
