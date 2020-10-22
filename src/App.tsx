@@ -53,7 +53,7 @@ function App() {
             </>
           )}
         </Navbar>
-        {settings && <SettingsModal/>}
+        {settings && <SettingsModal handleClose={() => toggleSettings(false)}/>}
         <Switch>
           {isSignedIn ? (
             <>
