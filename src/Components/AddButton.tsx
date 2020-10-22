@@ -4,8 +4,9 @@ import { Button } from "react-bootstrap";
 const unClickedColor = "#69B1BF";
 const clickedColor = "#CAF1FE";
 
-export default function AddButton() {
-  const addCard = () => {};
+export default function AddButton(props: {
+  onAdd: () => void
+}) {
   const [buttonColor, setButtonColor] = useState(unClickedColor);
   return (
     <div>
@@ -22,7 +23,7 @@ export default function AddButton() {
           backgroundColor: buttonColor,
           border: "none",
         }}
-        onClick={addCard}
+        onClick={props.onAdd}
         onMouseEnter={(
           event: React.MouseEvent<HTMLButtonElement, MouseEvent>
         ) => {

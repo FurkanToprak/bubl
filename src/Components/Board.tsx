@@ -241,10 +241,21 @@ function Board() {
     setList(newList);
   };
 
+  const onAdd = () => {
+    list.forEach((value, index) => {
+      ++list[index].index
+    });
+    list.splice(0, 0, {
+      id: 0,
+      index: 0,
+      content: "new card"
+    });
+    setList([...list])
+  }
   return (
     <div style={{ backgroundColor: "#F0F0F0" }}>
       <div style={{ paddingTop: 20, paddingBottom: 20 }}>
-        <AddButton />
+        <AddButton onAdd={onAdd}/>
       </div>
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         <Grid>
