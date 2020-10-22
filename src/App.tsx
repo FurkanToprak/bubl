@@ -4,9 +4,11 @@ import { Navbar, Nav } from "react-bootstrap";
 import Home from "./Pages/Home";
 import Search from "./Pages/Search";
 import LogIn from "./Pages/LogIn";
+import SettingsModal from "./Components/SettingsModal";
 
 function App() {
   const [isSignedIn, setIsSignedIn ] = useState(true);
+  const [settings, toggleSettings] = useState(false);
   return (
     <div
       style={{
@@ -45,11 +47,13 @@ function App() {
                   <Nav.Link onClick={() => setIsSignedIn(false)} as={Link} to="/">
                     sign out
                   </Nav.Link>
+                  <Nav.Link onClick={() => toggleSettings(true)}><span className="glyphicon glyphicon-cog"/></Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </>
           )}
         </Navbar>
+        {settings && <SettingsModal/>}
         <Switch>
           {isSignedIn ? (
             <>
