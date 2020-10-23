@@ -5,6 +5,8 @@ import Card from "./dnd/Card";
 import { DndProvider } from "react-dnd";
 import MultiBackend from "react-dnd-multi-backend";
 import HTML5toTouch from "./dnd/HTML5toTouch";
+import { Modal } from "react-bootstrap";
+import SelectorModal from "./SelectorModal";
 
 interface CardMetadata {
   id: number;
@@ -229,7 +231,7 @@ function sortItems(a: CardMetadata, b: CardMetadata) {
 
 function Board() {
   const [list, setList] = useState(initialItems);
-
+  const [selectionPromptOn, setSelectionPromptOn] = useState(false);
   const onDrop = (firstItemId: number, secondItemId: number) => {
     let newList = [...list];
     let firstItem = newList.find((i) => i.id === firstItemId);
@@ -242,6 +244,7 @@ function Board() {
   };
 
   const onAdd = () => {
+    /*
     list.forEach((value, index) => {
       ++list[index].index
     });
@@ -251,9 +254,12 @@ function Board() {
       content: "new card"
     });
     setList([...list])
+    */
+   setSelectionPromptOn(true);
   }
   return (
     <div style={{ backgroundColor: "#F0F0F0" }}>
+      {selectionPromptOn && <SelectorModal handleClose={()=>{setSelectionPromptOn(false)}}/>}
       <div style={{ paddingTop: 20, paddingBottom: 20 }}>
         <AddButton onAdd={onAdd}/>
       </div>
