@@ -2,36 +2,68 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
 export default function SelectorModal(props: { handleClose: () => void }) {
-    const [ mediaType, setMediaType ] = useState("");
+  const [mediaType, setMediaType] = useState("");
+  const [readyToSave, setReadyToSave] = useState(false);
   return (
-    <Modal show={true} onHide={props.handleClose}>
+    <Modal show={true} onHide={props.handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>add board</Modal.Title>
+        <Modal.Title style={{fontSize: "3em"}}>add board</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Button size="lg" onClick={() => setMediaType("spotify")}>Spotify</Button>
-          <Button size="lg" onClick={() => setMediaType("youtube")}>YouTube</Button>
-          <Button size="lg" onClick={() => setMediaType("giphy")}>Giphy</Button>
+          <Button
+            size="lg"
+            onClick={() => setMediaType("spotify")}
+            style={{
+              backgroundColor: "#1DB954",
+              width: "30%",
+              fontSize: "1.5em"
+            }}
+          >
+            Spotify
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => setMediaType("youtube")}
+            style={{
+              backgroundColor: "#FF0000",
+              width: "30%",
+              fontSize: "1.5em"
+            }}
+          >
+            YouTube
+          </Button>
+          <Button
+            size="lg"
+            onClick={() => setMediaType("giphy")}
+            style={{
+              background: "black",
+              width: "30%",
+              fontSize: "1.5em"
+            }}
+          >
+            GIPHY
+          </Button>
         </div>
-        {
-              mediaType === "spotify" && <div>spotify</div>
-          }
-          {
-              mediaType === "youtube" && <div>youtube</div>
-          }
-          {
-              mediaType === "giphy" && <div>giphy</div>
-          }
+        {mediaType === "spotify" && <div>spotify</div>}
+        {mediaType === "youtube" && <div>youtube</div>}
+        {mediaType === "giphy" && <div>giphy Giphy</div>}
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={props.handleClose}>
+      <Modal.Footer style={{ display: "flex" }}>
+        <Button
+          variant="secondary"
+          onClick={props.handleClose}
+          style={{ flex: 1, fontSize: "1.5em" }}
+        >
           close
         </Button>
         <Button
+          disabled={!readyToSave}
           style={{
             backgroundColor: "#69B1BF",
             border: "none",
+            flex: 1,
+            fontSize: "1.5em"
           }}
           onClick={props.handleClose}
         >

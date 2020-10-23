@@ -21,4 +21,83 @@ code {
   height: 100%;
 }
 
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.spotify-tab {
+  background-color: #1DB954;
+  color: white;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.active.spotify-tab {
+  background-color: #1DB954;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-color: black;
+  color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.youtube-tab {
+  background-color: red;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+}
+
+.nav-tabs .nav-link.active.youtube-tab {
+  background-color: red;
+  border-width: 2px;
+  border-color: black;
+  border-bottom-width: 0px;
+  color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.active.spotify-tab {
+  background-color: #1DB954;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-color: black;
+  border-bottom-width: 0px;
+  color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.giphy-tab {
+  background-color: black;
+  color: white;
+  border-width: 2px;
+  border-color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.active.giphy-tab {
+  background-color: black;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-color: black;
+  color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.profile-tab {
+  background-color: #69B1BF;
+  color: white;
+  border-width: 2px;
+  border-color: white;
+}
+
+.nav-tabs .nav-item.show .nav-link, 
+.nav-tabs .nav-link.active.profile-tab {
+  background-color: #69B1BF;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  border-color: black;
+  color: white;
+}
+
+
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");

@@ -1,48 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button, Tabs, Tab } from "react-bootstrap";
 
 export default function SettingsModal(props: { handleClose: () => void }) {
+  const [readyToSave, setReadyToSave] = useState(false);
   return (
-    <Modal show={true} onHide={props.handleClose}>
+    <Modal show={true} onHide={props.handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>settings</Modal.Title>
+        <Modal.Title style={{ fontSize: "3em" }}>settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-          <Tab eventKey="spotify" title="Spotify">
-            <img
-              src={require("../Media/spotify.png")}
-              style={{ maxHeight: 100, margin: "auto", display: "block" }}
-              alt="spotify logo"
-            />
+        <Tabs
+          defaultActiveKey="profile"
+          id="uncontrolled-tab-example"
+          style={{ fontSize: "1.5em", color: "white" }}
+        >
+          <Tab tabClassName="spotify-tab" eventKey="spotify" title="Spotify">
+            Spotify Stuff Here
           </Tab>
-          <Tab eventKey="giphy" title="Giphy">
-            <img
-              src={require("../Media/giphy.svg")}
-              style={{ maxHeight: 100, margin: "auto", display: "block" }}
-              alt="giphy logo"
-            />
+          <Tab tabClassName="youtube-tab" eventKey="youtube" title="YouTube">
+            YouTube Stuff Here
           </Tab>
-          <Tab eventKey="youtube" title="YouTube">
-            <img
-              src={require("../Media/youtube.png")}
-              style={{ maxHeight: 100, margin: "auto", display: "block" }}
-              alt="youtube logo"
-            />
+          <Tab tabClassName="giphy-tab" eventKey="giphy" title="Giphy">
+            Giphy Stuff Here
           </Tab>
-          <Tab eventKey="profile" title="Profile">
+          <Tab tabClassName="profile-tab" eventKey="profile" title="Profile">
             Profile Stuff Here
           </Tab>
         </Tabs>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={props.handleClose}>
+      <Modal.Footer style={{ display: "flex" }}>
+        <Button
+          variant="secondary"
+          onClick={props.handleClose}
+          style={{ flex: 1, fontSize: "1.5em" }}
+        >
           close
         </Button>
         <Button
+          disabled={!readyToSave}
           style={{
             backgroundColor: "#69B1BF",
             border: "none",
+            flex: 1,
+            fontSize: "1.5em",
           }}
           onClick={props.handleClose}
         >
