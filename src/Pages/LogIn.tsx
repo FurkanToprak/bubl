@@ -1,5 +1,16 @@
 import React from "react";
 import { Jumbotron, Button } from "react-bootstrap";
+import {
+  FirebaseAuthProvider,
+  FirebaseAuthConsumer
+} from "@react-firebase/auth";
+import * as firebase from "firebase/app";
+import { firebaseConfig } from "../firebase/test_cred";
+
+// FIREBASE 
+
+
+
 
 export default function LogIn() {
   return (
@@ -51,22 +62,61 @@ export default function LogIn() {
             display: "block",
           }}
         >
-          <Button style={{ width: "100%", marginBottom: 20 }}>
-            <img
-              src={require("../Media/google.png")}
-              style={{ maxHeight: 20, marginRight: "5%" }}
-              alt="google logo"
-            />
-            log in with google
-          </Button>
-          <Button style={{ width: "100%" }}>
-            <img
-              src={require("../Media/google.png")}
-              style={{ maxHeight: 20, marginRight: "5%" }}
-              alt="google logo"
-            />
-            sign up with google
-          </Button>
+
+          <div>
+            <FirebaseAuthProvider {...firebaseConfig} firebase={firebase}>
+              <div>
+                <FirebaseAuthConsumer>
+                  {({ isSignedIn, firebase }) => {
+                    // if (isSignedIn === true) {
+                    //   return (
+                    //     <div>
+                    //       <Button style={{ width: "100%", marginBottom: 20 }}
+                    //         onClick={() => {
+                    //           firebase
+                    //             .app()
+                    //             .auth()
+                    //             .signOut();
+                    //         }}
+                    //       >
+                    //         Sign out
+                    // </Button>
+                    //     </div>
+                    //   );
+                    // } else {
+                      return (
+                        <div>
+                          <Button style={{ width: "100%", marginBottom: 20 }}
+                            onClick={() => {
+                              const provider = new firebase.auth.GoogleAuthProvider();
+                              firebase
+                                .auth()
+                                .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+                                .then(() => {
+                                  firebase
+                                    .auth()
+                                    .signInWithPopup(provider).then(() => {  
+                                      //set isSignedIn 
+                                      setIsSignedIn(true) 
+                                    })
+                      
+                                })
+                            }}>
+                            <img
+                              src={require("../Media/google.png")}
+                              style={{ maxHeight: 20, marginRight: "5%" }}
+                              alt="google logo"
+                            />
+                            log in with google
+                          </Button>
+                        </div>
+                      );
+                    }
+                  }
+                </FirebaseAuthConsumer>
+              </div>
+            </FirebaseAuthProvider>
+          </div>
         </div>
       </Jumbotron>
     </div>

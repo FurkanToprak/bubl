@@ -6,7 +6,7 @@ import Search from "./Pages/Search";
 import LogIn from "./Pages/LogIn";
 
 function App() {
-  const [isSignedIn, setIsSignedIn ] = useState(true);
+  const [isSignedIn, setIsSignedIn ] = useState(false);
   return (
     <div
       style={{
