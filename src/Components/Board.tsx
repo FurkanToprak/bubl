@@ -244,24 +244,28 @@ function Board() {
   };
 
   const onAdd = () => {
-    /*
     list.forEach((value, index) => {
-      ++list[index].index
+      ++list[index].index;
     });
     list.splice(0, 0, {
       id: 0,
       index: 0,
-      content: "new card"
+      content: "new card",
     });
-    setList([...list])
-    */
-   setSelectionPromptOn(true);
-  }
+    setList([...list]);
+    setSelectionPromptOn(true);
+  };
   return (
     <div style={{ backgroundColor: "#F0F0F0" }}>
-      {selectionPromptOn && <SelectorModal handleClose={()=>{setSelectionPromptOn(false)}}/>}
+      {selectionPromptOn && (
+        <SelectorModal
+          handleClose={() => {
+            setSelectionPromptOn(false);
+          }}
+        />
+      )}
       <div style={{ paddingTop: 20, paddingBottom: 20 }}>
-        <AddButton onAdd={onAdd}/>
+        <AddButton onAdd={onAdd} />
       </div>
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         <Grid>
