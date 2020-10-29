@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import BubbleConfigure from "./BubbleConfigure";
 
-export default function SelectorModal(props: { handleClose: () => void }) {
+export default function SelectorModal(props: { handleClose: (content: any) => void }) {
   const [mediaType, setMediaType] = useState("");
   const [readyToSave, setReadyToSave] = useState(false);
+  let newContent: {
+    contentType: 'bubble' | 'spotify' | 'video' | 'giphy';
+    text: string;
+    color: string;
+    backgroundColor: string;
+  } | null = null;
   return (
-    <Modal show={true} onHide={props.handleClose} centered>
+    <Modal show={true} onHide={() => props.handleClose(null)} centered>
       <Modal.Header closeButton>
         <Modal.Title style={{ fontSize: "3em" }}>add board</Modal.Title>
       </Modal.Header>
@@ -63,13 +69,19 @@ export default function SelectorModal(props: { handleClose: () => void }) {
         {mediaType === "youtube" && <div>youtube</div>}
         {mediaType === "giphy" && <div>giphy Giphy</div>}
         {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string) => {
-          setReadyToSave(true)
+          newContent = {
+            contentType: mediaType,
+            text,
+            backgroundColor,
+            color,
+          };
+          setReadyToSave(true);
         }}/>}
       </Modal.Body>
       <Modal.Footer style={{ display: "flex" }}>
         <Button
           variant="secondary"
-          onClick={props.handleClose}
+          onClick={() => props.handleClose(null)}
           style={{ flex: 1, fontSize: "1.5em" }}
         >
           close
@@ -82,7 +94,9 @@ export default function SelectorModal(props: { handleClose: () => void }) {
             flex: 1,
             fontSize: "1.5em",
           }}
-          onClick={props.handleClose}
+          onClick={() => {
+            props.handleClose(newContent)}
+          }
         >
           save
         </Button>

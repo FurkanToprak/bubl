@@ -33,9 +33,10 @@ export default function BubbleConfigure(props: {
             }}
             type="text"
             placeholder="Enter text"
-            onChange={(event) =>
-              props.onDone(backgroundColor, color, event.target.value)
-            }
+            onChange={(event) => {
+              console.log(event.target.value);
+              props.onDone(backgroundColor, color, event.target.value);
+            }}
           />
         </Form.Group>
       </Form>
@@ -75,7 +76,7 @@ export default function BubbleConfigure(props: {
         <ChromePicker
           color={selected ? backgroundColor : color}
           onChange={(color, event) => {
-						setShowTip(true);
+            setShowTip(true);
             if (selected) setBackgroundColor(color.hex);
             else setColor(color.hex);
           }}
