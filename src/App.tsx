@@ -7,7 +7,7 @@ import LogIn from "./Pages/LogIn";
 import SettingsModal from "./Components/SettingsModal";
 
 function App() {
-  const [isSignedIn, setIsSignedIn ] = useState(false);
+  const [isSignedIn, setIsSignedIn ] = useState(true);
   const [settings, toggleSettings] = useState(false);
   return (
     <div
