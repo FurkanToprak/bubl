@@ -4,7 +4,7 @@ import Board from '../Components/Board';
 
 function Home() {
   return (
-    <div>
+    <div style={{height: "100%", display: "flex", flexDirection: "column"}}>
       <ProfileHeader />
       <Board/>
     </div>

@@ -9,10 +9,7 @@ import { firebaseConfig } from "../firebase/test_cred";
 
 // FIREBASE 
 
-
-
-
-export default function LogIn() {
+export default function LogIn(props: { setIsSignedIn: (to: boolean) => void;}) {
   return (
     <div
       style={{
@@ -97,7 +94,7 @@ export default function LogIn() {
                                     .auth()
                                     .signInWithPopup(provider).then(() => {  
                                       //set isSignedIn 
-                                      setIsSignedIn(true) 
+                                      props.setIsSignedIn(true) 
                                     })
                       
                                 })

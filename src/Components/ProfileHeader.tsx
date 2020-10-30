@@ -18,7 +18,8 @@ function ProfileHeader() {
                 }} alt={`${name}'s profile`} src={require("../Media/placeholder.png")}/>
           </div>
           <div style={{
-              textAlign: 'center'
+              textAlign: 'center',
+              fontSize: "2em",
           }}>
               {name}
           </div>

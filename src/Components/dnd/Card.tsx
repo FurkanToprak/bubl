@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { DND } from './DND';
-import styled from 'styled-components';
+import React, { useRef } from "react";
+import { DND } from "./DND";
+import styled from "styled-components";
 
 export default function Card(props: any) {
   const { item, onDrop, children, ...p } = props;
@@ -8,12 +8,16 @@ export default function Card(props: any) {
 
   const { isDragging } = DND(ref, {
     ...item,
-    hover: createDragHoverCallback(ref, item, onDrop)
+    hover: createDragHoverCallback(ref, item, onDrop),
   });
 
   const opacity = isDragging ? 0 : 1;
-  return <GridItemWrapper {...p} ref={ref} style={{ opacity }}><div>{children}</div></GridItemWrapper>
-};
+  return (
+    <GridItemWrapper {...p} ref={ref} style={{ opacity }}>
+      {children}
+    </GridItemWrapper>
+  );
+}
 
 // This was copied and adapted from react-dnd sortable example: https://react-dnd.github.io/react-dnd/examples/sortable/simple
 // Even though we are working with a grid, I decided to keep the items sorted as a list,
@@ -39,13 +43,21 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
 
     // Only perform the move when the mouse has crossed half of the items height or width
     // When dragging downwards or right to left, only move when the cursor is below 50%
-    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY && hoverClientX < hoverMiddleX) {
-      return
+    if (
+      dragIndex < hoverIndex &&
+      hoverClientY < hoverMiddleY &&
+      hoverClientX < hoverMiddleX
+    ) {
+      return;
     }
 
     // When dragging upwards or left to right, only move when the cursor is above 50%
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY && hoverClientX > hoverMiddleX) {
-      return
+    if (
+      dragIndex > hoverIndex &&
+      hoverClientY > hoverMiddleY &&
+      hoverClientX > hoverMiddleX
+    ) {
+      return;
     }
 
     // Time to actually perform the action
@@ -59,21 +71,22 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
     // but it's good here for the sake of performance
     // to avoid expensive index searches.
     otherItem.index = currentItem.index;
-    }
-}
+  };
+};
 
-const GridItemWrapper = styled.div `
+const GridItemWrapper = styled.div`
   width: auto;
   min-width: 240px;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #e0e0e0;
   line-height: 1.2em;
   word-wrap: break-word;
   user-select: none;
   box-sizing: border-box;
   &:hover {
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302),0 1px 3px 1px rgba(60,64,67,0.149);
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+      0 1px 3px 1px rgba(60, 64, 67, 0.149);
   }
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
