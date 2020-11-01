@@ -95,7 +95,7 @@ export default function LogIn(props: { setIsSignedIn: (to: boolean) => void;}) {
                                     .auth()
                                     .signInWithPopup(provider).then((result: any) => {  
                                       console.log(result.user.uid);
-                                      axios.post('http://127.0.0.1:5000/create-user', {
+                                      axios.post('https://bubl-backend.herokuapp.com/create-user', {
                                         uuid: result.user.uid,
                                       })
                                       //set isSignedIn 
