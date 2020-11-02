@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   Container,
@@ -7,9 +7,13 @@ import {
   OverlayTrigger,
   Tooltip,
   Button,
+  ListGroup,
 } from "react-bootstrap";
 
-export default function GiphyConfigure() {
+export default function GiphyConfigure(props: {
+  onDone: (backgroundColor: string, color: string, text: string) => void;
+}) {
+  const [activeIndex, setActiveIndex] = useState(-1);
   return (
     <div style={{ marginTop: 10 }}>
       <Form>
@@ -46,6 +50,50 @@ export default function GiphyConfigure() {
           </Form.Group>
         </Container>
       </Form>
+      <ListGroup
+        style={{
+          maxHeight: 200,
+          overflowY: "auto",
+        }}
+      >
+        {[
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+          ["GIF Title", "GIF Contributer"],
+        ].map((value: string[], index: number) => {
+          return (
+            <ListGroup.Item
+              active={index === activeIndex}
+              onClick={() => {
+                setActiveIndex(index);
+                props.onDone("", "", "");
+              }}
+              style={{
+                color: index === activeIndex ?  "#FFF" : "#000",
+                backgroundColor: index === activeIndex ? "#000" : "#FFF",
+                borderColor: index === activeIndex ? "#000" : "#C0C0C0"
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "1.5em",
+                  fontWeight: "bold",
+                }}
+              >
+                {value[0]}
+              </div>
+              <div>{value[1]}</div>
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
     </div>
   );
 }
