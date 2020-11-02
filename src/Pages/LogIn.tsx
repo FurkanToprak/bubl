@@ -6,6 +6,7 @@ import {
 } from "@react-firebase/auth";
 import * as firebase from "firebase/app";
 import { firebaseConfig } from "../firebase/test_cred";
+import axios from "axios";
 
 // FIREBASE 
 
@@ -92,7 +93,11 @@ export default function LogIn(props: { setIsSignedIn: (to: boolean) => void;}) {
                                 .then(() => {
                                   firebase
                                     .auth()
-                                    .signInWithPopup(provider).then(() => {  
+                                    .signInWithPopup(provider).then((result: any) => {  
+                                      console.log(result.user.uid);
+                                      axios.post('https://bubl-backend.herokuapp.com/create-user', {
+                                        uuid: result.user.uid,
+                                      })
                                       //set isSignedIn 
                                       props.setIsSignedIn(true) 
                                     })
