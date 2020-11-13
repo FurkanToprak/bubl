@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import BubbleConfigure from "./BubbleConfigure";
+import GiphyConfigure from "./GiphyConfigure";
+import YouTubeConfigure from "./YouTubeConfigure";
+import SpotifyConfigure from "./SpotifyConfigure";
 
 export default function SelectorModal(props: { handleClose: (content: any) => void }) {
   const [mediaType, setMediaType] = useState("");
@@ -65,9 +68,15 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             bubble
           </Button>
         </div>
-        {mediaType === "spotify" && <div>spotify</div>}
-        {mediaType === "youtube" && <div>youtube</div>}
-        {mediaType === "giphy" && <div>giphy Giphy</div>}
+        {mediaType === "spotify" && <div><SpotifyConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+          setReadyToSave(true);
+        }} /></div>}
+        {mediaType === "youtube" && <div><YouTubeConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+          setReadyToSave(true);
+        }} /></div>}
+        {mediaType === "giphy" && <div><GiphyConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+          setReadyToSave(true);
+        }} /></div>}
         {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string) => {
           newContent = {
             contentType: mediaType,
