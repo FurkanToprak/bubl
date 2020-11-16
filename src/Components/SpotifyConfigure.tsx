@@ -28,7 +28,6 @@ export default function SpotifyConfigure(props: {
         setResults(res.data.result);
       }
     );
-
   }
 
   return (
