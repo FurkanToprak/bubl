@@ -9,14 +9,31 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
+import axios from "axios";
 
-export default function GiphyConfigure(props: {
+export default function YouTubeConfigure(props: {
   onDone: (backgroundColor: string, color: string, text: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [results, setResults] = useState([]);
+
+  function handleSearch(e: any) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formDataObj = Object.fromEntries(formData.entries());
+    const url =
+      process.env.REACT_APP_BACKEND_URL +
+      "youtube/search?query=" +
+      encodeURIComponent(formDataObj.query.toString()) +
+      "&search_type=track";
+    axios.get(url).then((res) => {
+      setResults(res.data.result);
+    });
+  }
+
   return (
     <div style={{ marginTop: 10 }}>
-      <Form>
+      <Form onSubmit={handleSearch}>
         <Container>
           <Form.Group>
             <Row>
@@ -33,13 +50,13 @@ export default function GiphyConfigure(props: {
                   delay={{ show: 250, hide: 400 }}
                   overlay={
                     <Tooltip id="button-tooltip">
-                      showing top 10 results.
+                      showing top 20 results.
                     </Tooltip>
                   }
                 >
                   <Button
                     style={{ backgroundColor: "red" }}
-                    type="submit"
+                    type="button"
                     size="lg"
                   >
                     search.
@@ -56,21 +73,7 @@ export default function GiphyConfigure(props: {
           overflowY: "auto",
         }}
       >
-        {[
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-        ].map((value: string[], index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               active={index === activeIndex}
@@ -81,7 +84,7 @@ export default function GiphyConfigure(props: {
               style={{
                 color: "#000",
                 backgroundColor: index === activeIndex ? "red" : "#FFF",
-                borderColor: index === activeIndex ? "#000" : "#C0C0C0"
+                borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
               <div

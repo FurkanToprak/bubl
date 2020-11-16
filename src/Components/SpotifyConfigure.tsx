@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import axios from 'axios';
 
-export default function GiphyConfigure(props: {
+export default function SpotifyConfigure(props: {
   onDone: (backgroundColor: string, color: string, text: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
