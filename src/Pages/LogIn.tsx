@@ -6,7 +6,6 @@ import {
   FirebaseAuthConsumer
 } from "@react-firebase/auth";
 import * as firebase from "firebase/app";
-import { firebaseConfig } from "../firebase/test_cred";
 import axios from "axios";
 import { AuthContext } from '../Auth';
 
@@ -81,7 +80,7 @@ export default function LogIn() {
                           .auth()
                           .signInWithPopup(provider).then((result: any) => {
                             console.log(result.user.uid);
-                            axios.post('https://bubl-backend.herokuapp.com/create-user', {
+                            axios.post(process.env.REACT_APP_BACKEND_URL + 'create-user', {
                               uuid: result.user.uid,
                             })
                           })

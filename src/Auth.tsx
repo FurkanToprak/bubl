@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import app from "./firebase/test_cred";
+import {auth} from "./firebase/test_cred";
 import axios from 'axios';
 
 export const AuthContext = React.createContext({
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   useEffect(() => {
     // Auth Change
     // runs on page refresh
-    app.auth().onAuthStateChanged((user: any) => {
+    auth.onAuthStateChanged((user: any) => {
       setCurrentUser(user);
       console.log('new user!!!!', user);
       setPending(false);

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Tabs, Tab } from "react-bootstrap";
+import SpotifyConnect from "./spotify/SpotifyConnect";
 
 export default function SettingsModal(props: { handleClose: () => void }) {
   const [readyToSave, setReadyToSave] = useState(false);
@@ -15,7 +16,7 @@ export default function SettingsModal(props: { handleClose: () => void }) {
           style={{ fontSize: "1.5em", color: "white" }}
         >
           <Tab tabClassName="spotify-tab" eventKey="spotify" title="Spotify">
-            Spotify Stuff Here
+            <SpotifyConnect />
           </Tab>
           <Tab tabClassName="youtube-tab" eventKey="youtube" title="YouTube">
             YouTube Stuff Here

@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Switch, Link, Route } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
-import app from '../firebase/test_cred';
+import {auth} from '../firebase/test_cred';
 import { AuthContext } from '../Auth';
 
 export default function BublNavbar(props: { toggleSettings: (to: boolean) => void;}) {
   const { currentUser } = useContext(AuthContext);
 
   function handleSignout() {
-    app.auth().signOut();
+    auth.signOut();
   }
 
   if (currentUser) {

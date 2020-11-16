@@ -8,16 +8,33 @@ import {
   Tooltip,
   Button,
   ListGroup,
+  Image,
 } from "react-bootstrap";
+import axios from 'axios';
 
 export default function GiphyConfigure(props: {
   onDone: (backgroundColor: string, color: string, text: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [results, setResults] = useState([]);
+
+  function handleSearch(e: any) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formDataObj = Object.fromEntries(formData.entries());
+    const url = process.env.REACT_APP_BACKEND_URL + 'spotify/search?query=' + encodeURIComponent(formDataObj.query.toString()) + '&search_type=track';
+    axios.get(url).then(
+      (res) => {
+        setResults(res.data.result);
+      }
+    );
+
+  }
+
   return (
     <div style={{ marginTop: 10 }}>
       <div>
-        <Form>
+        <Form onSubmit={handleSearch}>
           <Container>
             <Form.Group>
               <Row>
@@ -26,6 +43,7 @@ export default function GiphyConfigure(props: {
                     size="lg"
                     type="text"
                     placeholder="search for spotify songs."
+                    name="query"
                   />
                 </Col>
                 <Col md="auto">
@@ -34,7 +52,7 @@ export default function GiphyConfigure(props: {
                     delay={{ show: 250, hide: 400 }}
                     overlay={
                       <Tooltip id="button-tooltip">
-                        showing top 10 results.
+                        showing top 20 results.
                       </Tooltip>
                     }
                   >
@@ -58,14 +76,7 @@ export default function GiphyConfigure(props: {
           overflowY: "auto",
         }}
       >
-        {[
-          ["Song Title", "Album Title", "Artist Name"],
-          ["Song Title", "Album Title", "Artist Name"],
-          ["Song Title", "Album Title", "Artist Name"],
-          ["Song Title", "Album Title", "Artist Name"],
-          ["Song Title", "Album Title", "Artist Name"],
-          ["Song Title", "Album Title", "Artist Name"],
-        ].map((value: string[], index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               active={index === activeIndex}
@@ -79,16 +90,25 @@ export default function GiphyConfigure(props: {
                 borderColor: index === activeIndex ? "#000" : "#C0C0C0"
               }}
             >
-              <div
-                style={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-              >
-                {value[0]}
-              </div>
-              <div>{value[1]}</div>
-              <div>{value[2]}</div>
+              <Container fluid>
+                <Row>
+                  <Col xs={9}>
+                    <div
+                      style={{
+                        fontSize: "1.5em",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {value.track}
+                    </div>
+                    <div>{value.album}</div>
+                    <div>{value.artist}</div>
+                  </Col>
+                  <Col xs={3}>
+                    <Image src={value.track_img} thumbnail/>
+                  </Col>
+                </Row>
+              </Container>
             </ListGroup.Item>
           );
         })}
