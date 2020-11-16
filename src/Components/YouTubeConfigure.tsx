@@ -10,30 +10,30 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import axios from "axios";
+import ReactPlayer from "react-player";
 
 export default function YouTubeConfigure(props: {
   onDone: (backgroundColor: string, color: string, text: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [results, setResults] = useState([]);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([] as string[]);
 
-  function handleSearch(e: any) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const formDataObj = Object.fromEntries(formData.entries());
-    const url =
-      process.env.REACT_APP_BACKEND_URL +
+  function handleSearch(query: string) {
+    if (!query.length) return;
+    const url = process.env.REACT_APP_BACKEND_URL +
       "youtube/search?query=" +
-      encodeURIComponent(formDataObj.query.toString()) +
-      "&search_type=track";
+      encodeURIComponent(query);
     axios.get(url).then((res) => {
-      setResults(res.data.result);
+      console.log(res);
+      setResults(res.data.videos);
     });
   }
+  console.log(results);
 
   return (
     <div style={{ marginTop: 10 }}>
-      <Form onSubmit={handleSearch}>
+      <Form>
         <Container>
           <Form.Group>
             <Row>
@@ -42,6 +42,8 @@ export default function YouTubeConfigure(props: {
                   size="lg"
                   type="text"
                   placeholder="search for youtube content."
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
                 />
               </Col>
               <Col md="auto">
@@ -58,6 +60,7 @@ export default function YouTubeConfigure(props: {
                     style={{ backgroundColor: "red" }}
                     type="button"
                     size="lg"
+                    onClick={() => handleSearch(query)}
                   >
                     search.
                   </Button>
@@ -69,11 +72,11 @@ export default function YouTubeConfigure(props: {
       </Form>
       <ListGroup
         style={{
-          maxHeight: 200,
+          height: 200,
           overflowY: "auto",
         }}
       >
-        {results.map((value: any, index: number) => {
+        {results.map((value: string, index: number) => {
           return (
             <ListGroup.Item
               active={index === activeIndex}
@@ -93,9 +96,8 @@ export default function YouTubeConfigure(props: {
                   fontWeight: "bold",
                 }}
               >
-                {value[0]}
+                <ReactPlayer url={value} style={{maxWidth: "60%", display: "float", margin: "auto"}}/>
               </div>
-              <div>{value[1]}</div>
             </ListGroup.Item>
           );
         })}
