@@ -9,6 +9,7 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
+import { v4 } from "uuid";
 
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
@@ -70,15 +71,16 @@ export default function GiphyConfigure(props: {
         ].map((value: string[], index: number) => {
           return (
             <ListGroup.Item
+              key={v4()}
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone("", "", "");
+                props.onDone("");
               }}
               style={{
-                color: index === activeIndex ?  "#FFF" : "#000",
+                color: index === activeIndex ? "#FFF" : "#000",
                 backgroundColor: index === activeIndex ? "#000" : "#FFF",
-                borderColor: index === activeIndex ? "#000" : "#C0C0C0"
+                borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
               <div

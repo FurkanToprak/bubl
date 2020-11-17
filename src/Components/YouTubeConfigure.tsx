@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import ReactPlayer from "react-player";
+import { v4 } from "uuid";
 
 export default function YouTubeConfigure(props: {
   onDone: (link: string) => void;
@@ -21,7 +22,8 @@ export default function YouTubeConfigure(props: {
 
   function handleSearch(query: string) {
     if (!query.length) return;
-    const url = process.env.REACT_APP_BACKEND_URL +
+    const url =
+      process.env.REACT_APP_BACKEND_URL +
       "youtube/search?query=" +
       encodeURIComponent(query);
     axios.get(url).then((res) => {
@@ -42,7 +44,7 @@ export default function YouTubeConfigure(props: {
                   type="text"
                   placeholder="search for youtube content."
                   value={query}
-                  onChange={e => setQuery(e.target.value)}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
               </Col>
               <Col md="auto">
@@ -78,10 +80,11 @@ export default function YouTubeConfigure(props: {
         {results.map((value: string, index: number) => {
           return (
             <ListGroup.Item
+              key={v4()}
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone("", "", "");
+                props.onDone(results[index]);
               }}
               style={{
                 color: "#000",
@@ -95,7 +98,10 @@ export default function YouTubeConfigure(props: {
                   fontWeight: "bold",
                 }}
               >
-                <ReactPlayer url={value} style={{maxWidth: "60%", display: "float", margin: "auto"}}/>
+                <ReactPlayer
+                  url={value}
+                  style={{ maxWidth: "60%", display: "float", margin: "auto" }}
+                />
               </div>
             </ListGroup.Item>
           );

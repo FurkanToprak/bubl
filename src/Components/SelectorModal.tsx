@@ -5,15 +5,18 @@ import GiphyConfigure from "./GiphyConfigure";
 import YouTubeConfigure from "./YouTubeConfigure";
 import SpotifyConfigure from "./SpotifyConfigure";
 
+interface BoardContent {
+  contentType: 'bubble' | 'spotify' | 'youtube' | 'giphy';
+  text?: string;
+  color?: string;
+  backgroundColor?: string;
+  link?: string;
+};
+
 export default function SelectorModal(props: { handleClose: (content: any) => void }) {
   const [mediaType, setMediaType] = useState("");
-  const [readyToSave, setReadyToSave] = useState(false);
-  let newContent: {
-    contentType: 'bubble' | 'spotify' | 'video' | 'giphy';
-    text: string;
-    color: string;
-    backgroundColor: string;
-  } | null = null;
+  const initialValue: any = false;
+  const [readyToSave, setReadyToSave] = useState(initialValue);
   return (
     <Modal show={true} onHide={() => props.handleClose(null)} centered>
       <Modal.Header closeButton>
@@ -69,22 +72,31 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
           </Button>
         </div>
         {mediaType === "spotify" && <div><SpotifyConfigure onDone={(link: string) => {
+          setReadyToSave({
+            contentType: mediaType,
+            link: link,
+          });
           setReadyToSave(true);
         }} /></div>}
         {mediaType === "youtube" && <div><YouTubeConfigure onDone={(link: string) => {
-          setReadyToSave(true);
+          setReadyToSave({
+            contentType: mediaType,
+            link: link,
+          });
         }} /></div>}
         {mediaType === "giphy" && <div><GiphyConfigure onDone={(link: string) => {
-          setReadyToSave(true);
+          setReadyToSave({
+            contentType: mediaType,
+            link: link,
+          });
         }} /></div>}
         {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string) => {
-          newContent = {
+          setReadyToSave({
             contentType: mediaType,
             text,
             backgroundColor,
             color,
-          };
-          setReadyToSave(true);
+          });
         }}/>}
       </Modal.Body>
       <Modal.Footer style={{ display: "flex" }}>
@@ -104,7 +116,7 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             fontSize: "1.5em",
           }}
           onClick={() => {
-            props.handleClose(newContent)}
+            props.handleClose(readyToSave)}
           }
         >
           save

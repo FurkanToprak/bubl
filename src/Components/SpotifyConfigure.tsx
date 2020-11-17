@@ -10,7 +10,8 @@ import {
   ListGroup,
   Image,
 } from "react-bootstrap";
-import axios from 'axios';
+import axios from "axios";
+import { v4 } from "uuid";
 
 export default function SpotifyConfigure(props: {
   onDone: (link: string) => void;
@@ -22,12 +23,14 @@ export default function SpotifyConfigure(props: {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formDataObj = Object.fromEntries(formData.entries());
-    const url = process.env.REACT_APP_BACKEND_URL + 'spotify/search?query=' + encodeURIComponent(formDataObj.query.toString()) + '&search_type=track';
-    axios.get(url).then(
-      (res) => {
-        setResults(res.data.result);
-      }
-    );
+    const url =
+      process.env.REACT_APP_BACKEND_URL +
+      "spotify/search?query=" +
+      encodeURIComponent(formDataObj.query.toString()) +
+      "&search_type=track";
+    axios.get(url).then((res) => {
+      setResults(res.data.result);
+    });
   }
 
   return (
@@ -78,15 +81,16 @@ export default function SpotifyConfigure(props: {
         {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
+              key={v4()}
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone("", "", "");
+                props.onDone(value.embed_url);
               }}
               style={{
                 color: "#000",
                 backgroundColor: index === activeIndex ? "#1DB954" : "#FFF",
-                borderColor: index === activeIndex ? "#000" : "#C0C0C0"
+                borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
               <Container fluid>
@@ -104,7 +108,7 @@ export default function SpotifyConfigure(props: {
                     <div>{value.artist}</div>
                   </Col>
                   <Col xs={3}>
-                    <Image src={value.track_img} thumbnail/>
+                    <Image src={value.track_img} thumbnail />
                   </Col>
                 </Row>
               </Container>
