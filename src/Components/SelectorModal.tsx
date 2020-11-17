@@ -68,13 +68,13 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             bubble
           </Button>
         </div>
-        {mediaType === "spotify" && <div><SpotifyConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+        {mediaType === "spotify" && <div><SpotifyConfigure onDone={(link: string) => {
           setReadyToSave(true);
         }} /></div>}
-        {mediaType === "youtube" && <div><YouTubeConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+        {mediaType === "youtube" && <div><YouTubeConfigure onDone={(link: string) => {
           setReadyToSave(true);
         }} /></div>}
-        {mediaType === "giphy" && <div><GiphyConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+        {mediaType === "giphy" && <div><GiphyConfigure onDone={(link: string) => {
           setReadyToSave(true);
         }} /></div>}
         {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string) => {

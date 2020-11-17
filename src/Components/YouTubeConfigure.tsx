@@ -13,7 +13,7 @@ import axios from "axios";
 import ReactPlayer from "react-player";
 
 export default function YouTubeConfigure(props: {
-  onDone: (backgroundColor: string, color: string, text: string) => void;
+  onDone: (link: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [query, setQuery] = useState("");
@@ -29,7 +29,6 @@ export default function YouTubeConfigure(props: {
       setResults(res.data.videos);
     });
   }
-  console.log(results);
 
   return (
     <div style={{ marginTop: 10 }}>

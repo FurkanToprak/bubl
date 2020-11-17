@@ -13,7 +13,7 @@ import {
 import axios from 'axios';
 
 export default function SpotifyConfigure(props: {
-  onDone: (backgroundColor: string, color: string, text: string) => void;
+  onDone: (link: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [results, setResults] = useState([]);

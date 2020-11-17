@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 
 export default function GiphyConfigure(props: {
-  onDone: (backgroundColor: string, color: string, text: string) => void;
+  onDone: (link: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
   return (
