@@ -9,6 +9,7 @@ import {
   Button,
   ListGroup,
   Image,
+  Dropdown,
 } from "react-bootstrap";
 import axios from 'axios';
 
@@ -34,8 +35,21 @@ export default function GiphyConfigure(props: {
   return (
     <div style={{ marginTop: 10 }}>
       <div>
-        <Form onSubmit={handleSearch}>
-          <Container>
+        <Container>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              choose what to search for
+          </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">songs</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">playlists</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">albums</Dropdown.Item>
+              <Dropdown.Item href="#/action-4">my songs</Dropdown.Item>
+              <Dropdown.Item href="#/action-5">my playlists</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Form onSubmit={handleSearch}>
             <Form.Group>
               <Row>
                 <Col>
@@ -67,8 +81,8 @@ export default function GiphyConfigure(props: {
                 </Col>
               </Row>
             </Form.Group>
-          </Container>
-        </Form>
+          </Form>
+        </Container>
       </div>
       <ListGroup
         style={{
@@ -105,7 +119,7 @@ export default function GiphyConfigure(props: {
                     <div>{value.artist}</div>
                   </Col>
                   <Col xs={3}>
-                    <Image src={value.track_img} thumbnail/>
+                    <Image src={value.track_img} thumbnail />
                   </Col>
                 </Row>
               </Container>
