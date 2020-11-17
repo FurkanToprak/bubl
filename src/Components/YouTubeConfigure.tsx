@@ -9,11 +9,28 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
+import axios from "axios";
+import ReactPlayer from "react-player";
 
-export default function GiphyConfigure(props: {
+export default function YouTubeConfigure(props: {
   onDone: (backgroundColor: string, color: string, text: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([] as string[]);
+
+  function handleSearch(query: string) {
+    if (!query.length) return;
+    const url = process.env.REACT_APP_BACKEND_URL +
+      "youtube/search?query=" +
+      encodeURIComponent(query);
+    axios.get(url).then((res) => {
+      console.log(res);
+      setResults(res.data.videos);
+    });
+  }
+  console.log(results);
+
   return (
     <div style={{ marginTop: 10 }}>
       <Form>
@@ -25,6 +42,8 @@ export default function GiphyConfigure(props: {
                   size="lg"
                   type="text"
                   placeholder="search for youtube content."
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
                 />
               </Col>
               <Col md="auto">
@@ -33,14 +52,15 @@ export default function GiphyConfigure(props: {
                   delay={{ show: 250, hide: 400 }}
                   overlay={
                     <Tooltip id="button-tooltip">
-                      showing top 10 results.
+                      showing top 20 results.
                     </Tooltip>
                   }
                 >
                   <Button
                     style={{ backgroundColor: "red" }}
-                    type="submit"
+                    type="button"
                     size="lg"
+                    onClick={() => handleSearch(query)}
                   >
                     search.
                   </Button>
@@ -52,25 +72,11 @@ export default function GiphyConfigure(props: {
       </Form>
       <ListGroup
         style={{
-          maxHeight: 200,
+          height: 200,
           overflowY: "auto",
         }}
       >
-        {[
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-          ["Video Title", "Artist Name"],
-        ].map((value: string[], index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               active={index === activeIndex}
@@ -81,7 +87,7 @@ export default function GiphyConfigure(props: {
               style={{
                 color: "#000",
                 backgroundColor: index === activeIndex ? "red" : "#FFF",
-                borderColor: index === activeIndex ? "#000" : "#C0C0C0"
+                borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
               <div
@@ -90,9 +96,8 @@ export default function GiphyConfigure(props: {
                   fontWeight: "bold",
                 }}
               >
-                {value[0]}
+                <ReactPlayer url={value.link} style={{maxWidth: "60%", display: "float", margin: "auto"}}/>
               </div>
-              <div>{value[1]}</div>
             </ListGroup.Item>
           );
         })}
