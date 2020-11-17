@@ -76,7 +76,7 @@ export default function YouTubeConfigure(props: {
           overflowY: "auto",
         }}
       >
-        {results.map((value: string, index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               active={index === activeIndex}
@@ -96,7 +96,7 @@ export default function YouTubeConfigure(props: {
                   fontWeight: "bold",
                 }}
               >
-                <ReactPlayer url={value} style={{maxWidth: "60%", display: "float", margin: "auto"}}/>
+                <ReactPlayer url={value.link} style={{maxWidth: "60%", display: "float", margin: "auto"}}/>
               </div>
             </ListGroup.Item>
           );
