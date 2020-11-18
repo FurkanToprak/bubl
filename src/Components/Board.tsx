@@ -54,7 +54,6 @@ function Board() {
             list.forEach((value, index) => {
               ++list[index].index;
             });
-            console.log(content);
             list.splice(0, 0, {
               id: 0,
               index: 0,
@@ -76,16 +75,14 @@ function Board() {
                     {content.text}
                   </div>
                 ) : content.contentType === "youtube" ? (
-                  <div>
                     <ReactPlayer
                       url={content.link}
                       style={{
-                        maxWidth: "60%",
+                        maxWidth: "80%",
                         display: "float",
                         margin: "auto",
                       }}
                     />
-                  </div>
                 ) : content.contentType === "spotify" ? (
                   <iframe
                     src={content.link}
