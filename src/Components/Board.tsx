@@ -7,6 +7,7 @@ import MultiBackend from "react-dnd-multi-backend";
 import HTML5toTouch from "./dnd/HTML5toTouch";
 import SelectorModal from "./SelectorModal";
 import ReactPlayer from "react-player";
+import { v4 } from "uuid";
 
 interface CardMetadata {
   id: number;
@@ -53,6 +54,7 @@ function Board() {
             list.forEach((value, index) => {
               ++list[index].index;
             });
+            console.log(content);
             list.splice(0, 0, {
               id: 0,
               index: 0,
@@ -74,31 +76,41 @@ function Board() {
                     {content.text}
                   </div>
                 ) : content.contentType === "youtube" ? (
-                  <div><ReactPlayer url={content.link} style={{maxWidth: "60%", display: "float", margin: "auto"}}/></div>
+                  <div>
+                    <ReactPlayer
+                      url={content.link}
+                      style={{
+                        maxWidth: "60%",
+                        display: "float",
+                        margin: "auto",
+                      }}
+                    />
+                  </div>
                 ) : content.contentType === "spotify" ? (
-                  <div style={{
-                    backgroundColor: content.backgroundColor,
-                    color: content.color,
-                    width: "100%",
-                    paddingTop: "50%",
-                    paddingBottom: "50%",
-                    borderRadius: "50%",
-                    textAlign: "center",
-                    lineHeight: "100%",
-                    border: "1px solid #69b1bf",
-                  }}>SPOTIFY</div>
+                  <iframe
+                    src={content.link}
+                    title={v4()}
+                    width="80%"
+                    height="80%"
+                    frameBorder="0"
+                    allow="encrypted-media"
+                  ></iframe>
                 ) : content.contentType === "giphy" ? (
-                  <div style={{
-                    backgroundColor: content.backgroundColor,
-                    color: content.color,
-                    width: "100%",
-                    paddingTop: "50%",
-                    paddingBottom: "50%",
-                    borderRadius: "50%",
-                    textAlign: "center",
-                    lineHeight: "100%",
-                    border: "1px solid #69b1bf",
-                  }}>GIPHY</div>
+                  <div
+                    style={{
+                      backgroundColor: content.backgroundColor,
+                      color: content.color,
+                      width: "100%",
+                      paddingTop: "50%",
+                      paddingBottom: "50%",
+                      borderRadius: "50%",
+                      textAlign: "center",
+                      lineHeight: "100%",
+                      border: "1px solid #69b1bf",
+                    }}
+                  >
+                    GIPHY
+                  </div>
                 ) : (
                   <div>ERROR</div>
                 ),

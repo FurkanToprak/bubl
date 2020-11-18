@@ -14,8 +14,9 @@ interface BoardContent {
 };
 
 export default function SelectorModal(props: { handleClose: (content: any) => void }) {
-  const [mediaType, setMediaType] = useState("");
-  const initialValue: any = false;
+  const initialType: string = "";
+  const [mediaType, setMediaType] = useState(initialType);
+  const initialValue: any = undefined;
   const [readyToSave, setReadyToSave] = useState(initialValue);
   return (
     <Modal show={true} onHide={() => props.handleClose(null)} centered>
@@ -76,7 +77,6 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             contentType: mediaType,
             link: link,
           });
-          setReadyToSave(true);
         }} /></div>}
         {mediaType === "youtube" && <div><YouTubeConfigure onDone={(link: string) => {
           setReadyToSave({
@@ -116,6 +116,7 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             fontSize: "1.5em",
           }}
           onClick={() => {
+            console.log(readyToSave);
             props.handleClose(readyToSave)}
           }
         >

@@ -84,8 +84,8 @@ export default function SpotifyConfigure(props: {
               key={v4()}
               active={index === activeIndex}
               onClick={() => {
-                setActiveIndex(index);
                 props.onDone(value.embed_url);
+                setActiveIndex(index);
               }}
               style={{
                 color: "#000",

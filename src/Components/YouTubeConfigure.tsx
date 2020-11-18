@@ -27,8 +27,7 @@ export default function YouTubeConfigure(props: {
       "youtube/search?query=" +
       encodeURIComponent(query);
     axios.get(url).then((res) => {
-      console.log(res);
-      setResults(res.data.videos);
+      setResults(res.data.videos.map((a: any) => a.link));
     });
   }
 
@@ -77,7 +76,7 @@ export default function YouTubeConfigure(props: {
           overflowY: "auto",
         }}
       >
-        {results.map((value: string, index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               key={v4()}
