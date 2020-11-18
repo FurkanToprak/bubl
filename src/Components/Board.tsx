@@ -54,6 +54,7 @@ function Board() {
             list.forEach((value, index) => {
               ++list[index].index;
             });
+            console.log(content);
             list.splice(0, 0, {
               id: 0,
               index: 0,
