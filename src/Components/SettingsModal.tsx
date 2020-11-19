@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Modal, Button, Tabs, Tab } from "react-bootstrap";
+import ProfileUpdateBiography from "./profile/ProfileUpdateBiography";
 import SpotifyConnect from "./spotify/SpotifyConnect";
+import axios from 'axios';
+import { AuthContext } from '../Auth';
 
 export default function SettingsModal(props: { handleClose: () => void }) {
   const [readyToSave, setReadyToSave] = useState(false);
+  const [bio, setBio] = useState('');
+  const { currentUser } = useContext(AuthContext);
+
+  function handleSave() {
+    props.handleClose();
+      axios.post(
+        process.env.REACT_APP_BACKEND_URL + "users/bio/update",
+        {
+          uuid: currentUser.uid,
+          updated_bio: bio,
+        }
+      );
+  }
+
   return (
     <Modal show={true} onHide={props.handleClose} centered>
       <Modal.Header closeButton>
@@ -25,7 +42,7 @@ export default function SettingsModal(props: { handleClose: () => void }) {
             Giphy Stuff Here
           </Tab>
           <Tab tabClassName="profile-tab" eventKey="profile" title="Profile">
-            Profile Stuff Here
+            <ProfileUpdateBiography setReadyToSave={setReadyToSave} bio={bio} setBio={setBio} />
           </Tab>
         </Tabs>
       </Modal.Body>
@@ -45,7 +62,7 @@ export default function SettingsModal(props: { handleClose: () => void }) {
             flex: 1,
             fontSize: "1.5em",
           }}
-          onClick={props.handleClose}
+          onClick={handleSave}
         >
           save
         </Button>
