@@ -9,12 +9,27 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
+import axios from "axios";
+import ReactPlayer from "react-player";
 import { v4 } from "uuid";
 
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
 }) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([] as string[]);
+
+  function handleSearch(query: string) {
+    if (!query.length) return;
+    const url =
+      process.env.REACT_APP_BACKEND_URL +
+      "giphy/search?query=" +
+      encodeURIComponent(query);
+    axios.get(url).then((res) => {
+      setResults(res.data.videos.map((a: any) => a.link));
+    });
+  }
   return (
     <div style={{ marginTop: 10 }}>
       <Form>
@@ -26,6 +41,8 @@ export default function GiphyConfigure(props: {
                   size="lg"
                   type="text"
                   placeholder="search for giphy posts."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
               </Col>
               <Col md="auto">
@@ -34,7 +51,7 @@ export default function GiphyConfigure(props: {
                   delay={{ show: 250, hide: 400 }}
                   overlay={
                     <Tooltip id="button-tooltip">
-                      showing top 10 results.
+                      showing top 20 results.
                     </Tooltip>
                   }
                 >
@@ -42,6 +59,7 @@ export default function GiphyConfigure(props: {
                     style={{ backgroundColor: "black" }}
                     type="submit"
                     size="lg"
+                    onClick={() => handleSearch(query)}
                   >
                     search.
                   </Button>
@@ -57,25 +75,14 @@ export default function GiphyConfigure(props: {
           overflowY: "auto",
         }}
       >
-        {[
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-          ["GIF Title", "GIF Contributer"],
-        ].map((value: string[], index: number) => {
+        {results.map((value: any, index: number) => {
           return (
             <ListGroup.Item
               key={v4()}
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone("");
+                props.onDone(results[index]);
               }}
               style={{
                 color: index === activeIndex ? "#FFF" : "#000",
