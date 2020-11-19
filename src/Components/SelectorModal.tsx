@@ -116,7 +116,6 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             fontSize: "1.5em",
           }}
           onClick={() => {
-            console.log(readyToSave);
             props.handleClose(readyToSave)}
           }
         >

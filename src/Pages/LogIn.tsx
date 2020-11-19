@@ -79,7 +79,6 @@ export default function LogIn() {
                         firebase
                           .auth()
                           .signInWithPopup(provider).then((result: any) => {
-                            console.log(result.user.uid);
                             axios.post(process.env.REACT_APP_BACKEND_URL + 'create-user', {
                               uuid: result.user.uid,
                             })
