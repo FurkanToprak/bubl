@@ -54,7 +54,6 @@ function Board() {
             list.forEach((value, index) => {
               ++list[index].index;
             });
-            console.log(content);
             list.splice(0, 0, {
               id: 0,
               index: 0,
@@ -68,7 +67,7 @@ function Board() {
                       paddingTop: "50%",
                       paddingBottom: "50%",
                       borderRadius: "50%",
-                      textAlign: "center",
+                      textAlign: "center",//TODO: Animate
                       lineHeight: "100%",
                       border: "1px solid #69b1bf",
                     }}

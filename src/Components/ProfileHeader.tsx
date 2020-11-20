@@ -4,7 +4,6 @@ function ProfileHeader() {
     const name = "FirstName LastName";
     return (
       <div style={{
-          maxHeight: "30%",
           backgroundColor: "#CAF1FE"
       }}>
           <div>
