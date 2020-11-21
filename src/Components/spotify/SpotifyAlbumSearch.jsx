@@ -27,7 +27,6 @@ export default function SpotifyAlbumSearch(props) {
         setResults(res.data.result);
       }
     );
-
   }
 
   return (

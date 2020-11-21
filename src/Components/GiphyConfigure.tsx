@@ -10,8 +10,8 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import axios from "axios";
-import ReactPlayer from "react-player";
 import { v4 } from "uuid";
+
 
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
@@ -82,7 +82,7 @@ export default function GiphyConfigure(props: {
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone(results[index]);
+                props.onDone(value.url);
               }}
               style={{
                 color: index === activeIndex ? "#FFF" : "#000",
@@ -90,16 +90,10 @@ export default function GiphyConfigure(props: {
                 borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
-              <div
-                style={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-              >
-                {value.title}
-                <br></br>
-                <img src={value.url} style={{ maxWidth: "60%", display: "float", margin: "auto" }}></img>
-              </div>
+              <div>{value.title}</div>
+              <img src={value.url} style={{ width: "80%", height: "80%" }}>
+              </img>
+
             </ListGroup.Item>
           );
         })}
