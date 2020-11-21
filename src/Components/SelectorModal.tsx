@@ -10,6 +10,7 @@ interface BoardContent {
   text?: string;
   color?: string;
   backgroundColor?: string;
+  borderColor?: string;
   link?: string;
 };
 
@@ -90,12 +91,13 @@ export default function SelectorModal(props: { handleClose: (content: any) => vo
             link: link,
           });
         }} /></div>}
-        {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string) => {
+        {mediaType === "bubble" && <BubbleConfigure onDone={(backgroundColor: string, color: string, text: string, borderColor: string) => {
           setReadyToSave({
             contentType: mediaType,
             text,
             backgroundColor,
             color,
+            borderColor,
           });
         }}/>}
       </Modal.Body>

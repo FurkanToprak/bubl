@@ -13,7 +13,11 @@ export default function Card(props: any) {
 
   const opacity = isDragging ? 0 : 1;
   return (
-    <GridItemWrapper {...p} ref={ref} style={{ opacity }}>
+    <GridItemWrapper
+      {...p}
+      ref={ref}
+      style={{ opacity, height: props.height }}
+    >
       {children}
     </GridItemWrapper>
   );
@@ -76,14 +80,13 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
 
 const GridItemWrapper = styled.div`
   width: auto;
-  min-width: 240px;
+  min-width: 300px;
   line-height: 1.2em;
   word-wrap: break-word;
   user-select: none;
   box-sizing: border-box;
   &:hover {
-    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
-      0 1px 3px 1px rgba(60, 64, 67, 0.149);
+    border: 1px dashed #69b1bf;
   }
   font-size: 1.5em;
   display: flex;

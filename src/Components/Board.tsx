@@ -8,11 +8,13 @@ import HTML5toTouch from "./dnd/HTML5toTouch";
 import SelectorModal from "./SelectorModal";
 import ReactPlayer from "react-player";
 import { v4 } from "uuid";
+import Bubble from "./Bubble";
 
 interface CardMetadata {
   id: number;
   index: number;
   content: any;
+  contentType: "bubble" | "spotify" | "youtube" | "giphy";
 }
 
 const initialItems: CardMetadata[] = [];
@@ -48,6 +50,7 @@ function Board() {
             color?: string;
             backgroundColor?: string;
             link?: string;
+            borderColor?: string
           }) => {
             setSelectionPromptOn(false);
             if (content === null) return;
@@ -57,32 +60,24 @@ function Board() {
             list.splice(0, 0, {
               id: 0,
               index: 0,
+              contentType: content.contentType,
               content:
                 content.contentType === "bubble" ? (
-                  <div
-                    style={{
-                      backgroundColor: content.backgroundColor,
-                      color: content.color,
-                      width: "100%",
-                      paddingTop: "50%",
-                      paddingBottom: "50%",
-                      borderRadius: "50%",
-                      textAlign: "center",//TODO: Animate
-                      lineHeight: "100%",
-                      border: "1px solid #69b1bf",
-                    }}
-                  >
-                    {content.text}
-                  </div>
+                  <Bubble
+                    text={content.text as string}
+                    txtColor={content.color as string}
+                    bgColor={content.backgroundColor as string}
+                    borderColor={content.borderColor as string}
+                  />
                 ) : content.contentType === "youtube" ? (
-                    <ReactPlayer
-                      url={content.link}
-                      style={{
-                        maxWidth: "80%",
-                        display: "float",
-                        margin: "auto",
-                      }}
-                    />
+                  <ReactPlayer
+                    url={content.link}
+                    style={{
+                      maxWidth: "80%",
+                      display: "float",
+                      margin: "auto",
+                    }}
+                  />
                 ) : content.contentType === "spotify" ? (
                   <iframe
                     src={content.link}
@@ -122,7 +117,12 @@ function Board() {
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         <Grid>
           {list.sort(sortItems).map((item) => (
-            <Card key={item.id} item={item} onDrop={onDrop}>
+            <Card
+              key={item.id}
+              item={item}
+              onDrop={onDrop}
+              height={item.contentType === "bubble" ? 300 : undefined}
+            >
               {item.content}
             </Card>
           ))}
