@@ -27,7 +27,7 @@ export default function YouTubeConfigure(props: {
       "youtube/search?query=" +
       encodeURIComponent(query);
     axios.get(url).then((res) => {
-      setResults(res.data.videos.map((a: any) => a.link));
+      setResults(res.data.videos);
     });
   }
 
@@ -97,8 +97,9 @@ export default function YouTubeConfigure(props: {
                   fontWeight: "bold",
                 }}
               >
+                {value.title}
                 <ReactPlayer
-                  url={value}
+                  url={value.link}
                   style={{ maxWidth: "60%", display: "float", margin: "auto" }}
                 />
               </div>
