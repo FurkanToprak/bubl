@@ -47,8 +47,9 @@ function Board() {
             text?: string;
             color?: string;
             backgroundColor?: string;
-            link?: string;
+            link?: any;
           }) => {
+            console.log(content);
             setSelectionPromptOn(false);
             if (content === null) return;
             list.forEach((value, index) => {
@@ -67,7 +68,7 @@ function Board() {
                       paddingTop: "50%",
                       paddingBottom: "50%",
                       borderRadius: "50%",
-                      textAlign: "center",//TODO: Animate
+                      textAlign: "center", //TODO: Animate
                       lineHeight: "100%",
                       border: "1px solid #69b1bf",
                     }}
@@ -75,14 +76,14 @@ function Board() {
                     {content.text}
                   </div>
                 ) : content.contentType === "youtube" ? (
-                    <ReactPlayer
-                      url={content.link}
-                      style={{
-                        maxWidth: "80%",
-                        display: "float",
-                        margin: "auto",
-                      }}
-                    />
+                  <ReactPlayer
+                    url={content.link.link}
+                    style={{
+                      maxWidth: "80%",
+                      display: "float",
+                      margin: "auto",
+                    }}
+                  />
                 ) : content.contentType === "spotify" ? (
                   <iframe
                     src={content.link}
