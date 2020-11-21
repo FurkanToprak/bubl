@@ -3,18 +3,18 @@ import { Jumbotron, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import {
   FirebaseAuthProvider,
-  FirebaseAuthConsumer
+  FirebaseAuthConsumer,
 } from "@react-firebase/auth";
 import * as firebase from "firebase/app";
 import axios from "axios";
-import { AuthContext } from '../Auth';
+import { AuthContext } from "../Auth";
 
-// FIREBASE 
+// FIREBASE
 
 export default function LogIn() {
   const { currentUser } = useContext(AuthContext);
   if (currentUser) {
-    return <Redirect to="/bubl" />
+    return <Redirect to="/bubl" />;
   }
   return (
     <div
@@ -65,11 +65,11 @@ export default function LogIn() {
             display: "block",
           }}
         >
-
           <div>
             <div>
               <div>
-                <Button style={{ width: "100%", marginBottom: 20 }}
+                <Button
+                  style={{ width: "100%", marginBottom: 20 }}
                   onClick={() => {
                     const provider = new firebase.auth.GoogleAuthProvider();
                     firebase
@@ -78,22 +78,25 @@ export default function LogIn() {
                       .then(() => {
                         firebase
                           .auth()
-                          .signInWithPopup(provider).then((result: any) => {
-                            console.log(result.user.uid);
-                            axios.post(process.env.REACT_APP_BACKEND_URL + 'create-user', {
-                              uuid: result.user.uid,
-                            })
-                          })
-
-                      })
-                  }}>
+                          .signInWithPopup(provider)
+                          .then((result: any) => {
+                            axios.post(
+                              process.env.REACT_APP_BACKEND_URL + "create-user",
+                              {
+                                uuid: result.user.uid,
+                              }
+                            );
+                          });
+                      });
+                  }}
+                >
                   <img
                     src={require("../Media/google.png")}
                     style={{ maxHeight: 20, marginRight: "5%" }}
                     alt="google logo"
                   />
-                            log in with google
-                          </Button>
+                  log in with google
+                </Button>
               </div>
             </div>
           </div>

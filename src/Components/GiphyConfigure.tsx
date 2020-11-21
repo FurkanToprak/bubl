@@ -91,9 +91,9 @@ export default function GiphyConfigure(props: {
               }}
             >
               <div>{value.title}</div>
-              <img src={value.url} style={{ width: "80%", height: "80%"}}>
+              <img src={value.url} style={{ width: "80%", height: "80%" }}>
               </img>
-              
+
             </ListGroup.Item>
           );
         })}

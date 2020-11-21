@@ -34,7 +34,6 @@ export default function BubbleConfigure(props: {
             type="text"
             placeholder="Enter text"
             onChange={(event) => {
-              console.log(event.target.value);
               props.onDone(backgroundColor, color, event.target.value);
             }}
           />
