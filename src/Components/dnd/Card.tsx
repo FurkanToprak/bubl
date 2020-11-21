@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { DND } from "./DND";
 import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 export default function Card(props: any) {
   const { item, onDrop, children, ...p } = props;
@@ -13,11 +14,29 @@ export default function Card(props: any) {
 
   const opacity = isDragging ? 0 : 1;
   return (
-    <GridItemWrapper
-      {...p}
-      ref={ref}
-      style={{ opacity, height: props.height }}
-    >
+    <GridItemWrapper {...p} ref={ref} style={{ opacity, height: props.height }}>
+      <Button
+        type="button"
+        style={{
+          textAlign: "center",
+          backgroundColor: "red",
+          color: "#fff",
+          width: 30,
+          height: 30,
+          borderRadius: "50%",
+          fontWeight: "bold",
+          top: 0,
+          left: 0,
+          position: "absolute",
+          zIndex: 20,
+        }}
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+          e.preventDefault();
+          props.onDelete();
+        }}
+      >
+        X
+      </Button>
       {children}
     </GridItemWrapper>
   );
@@ -76,7 +95,6 @@ const GridItemWrapper = styled.div`
   width: auto;
   min-width: 240px;
   min-height: 240px;
-  line-height: 1.2em;
   word-wrap: break-word;
   user-select: none;
   box-sizing: border-box;
@@ -85,6 +103,7 @@ const GridItemWrapper = styled.div`
   }
   font-size: 1.5em;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
 `;

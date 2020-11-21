@@ -34,14 +34,26 @@ function Board() {
     const firstIndex = firstItem.index;
     firstItem.index = secondItem.index;
     secondItem.index = firstIndex;
-    console.log(list);
-    console.log(newList);
     setList(newList);
   };
 
   const onAdd = () => {
     setSelectionPromptOn(true);
   };
+
+  const onDelete = (deletedIndex: number) => {
+    const newList = [...list];
+    newList.splice(deletedIndex, 1);
+    newList.forEach((value, listIndex) => {
+      if (value.index > deletedIndex) {
+        --newList[listIndex].index;
+      }
+    });
+    console.log(list);
+    console.log(newList);
+    setList(newList);
+  };
+
   return (
     <div style={{ backgroundColor: "#F0F0F0", flex: 1 }}>
       {selectionPromptOn && (
@@ -54,7 +66,6 @@ function Board() {
             borderColor?: string;
             link?: any;
           }) => {
-            console.log(content);
             setSelectionPromptOn(false);
             if (content === null) return;
             list.forEach((value, index) => {
@@ -92,8 +103,11 @@ function Board() {
                     allow="encrypted-media"
                   ></iframe>
                 ) : content.contentType === "giphy" ? (
-                  <img src={content.link} alt={`item ${v4()}`} style={{ width: "80%", height: "80%"}}>
-                  </img>
+                  <img
+                    src={content.link}
+                    alt={`item ${v4()}`}
+                    style={{ width: "80%", height: "80%" }}
+                  ></img>
                 ) : (
                   <div>ERROR</div>
                 ),
@@ -107,12 +121,13 @@ function Board() {
       </div>
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         <Grid>
-          {list.sort(sortItems).map((item) => (
+          {list.sort(sortItems).map((item, index) => (
             <Card
               key={item.id}
               item={item}
               onDrop={onDrop}
               height={item.contentType === "bubble" ? 300 : undefined}
+              onDelete={() => onDelete(index)}
             >
               {item.content}
             </Card>
