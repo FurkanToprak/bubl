@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {auth} from "./firebase/test_cred";
-import axios from 'axios';
 
 export const AuthContext = React.createContext({
   currentUser: null,

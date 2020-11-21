@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { Jumbotron, Button } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import {
-  FirebaseAuthProvider,
-  FirebaseAuthConsumer,
-} from "@react-firebase/auth";
 import * as firebase from "firebase/app";
 import axios from "axios";
 import { AuthContext } from "../Auth";

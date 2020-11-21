@@ -9,13 +9,11 @@ import {
   Button,
   ListGroup,
   Image,
-  Dropdown,
 } from "react-bootstrap";
 import axios from "axios";
 import { firestore } from "../../firebase/test_cred";
 import "firebase/firestore";
 import {
-  useCollectionData,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
 import { AuthContext } from '../../Auth';

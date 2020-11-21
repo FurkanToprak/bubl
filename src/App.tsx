@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
-import { BrowserRouter, Switch, Link, Route } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
+import React, { useState } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Navbar } from "react-bootstrap";
 import Home from "./Pages/Home";
 import Search from "./Pages/Search";
 import LogIn from "./Pages/LogIn";
@@ -10,7 +10,6 @@ import BublNavbar from "./Components/BublNavbar";
 import PrivateRoute from "./PrivateRoute.jsx";
 
 function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
   const [settings, toggleSettings] = useState(false);
   return (
     <AuthProvider>

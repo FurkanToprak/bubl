@@ -15,7 +15,7 @@ export default function Bubble(props: {
         backgroundColor: props.bgColor,
         borderWidth: 3,
         borderColor: props.borderColor,
-        borderStyle: "solid"
+        borderStyle: "solid",
       }}
     >
       <div
