@@ -49,9 +49,10 @@ function Board() {
             text?: string;
             color?: string;
             backgroundColor?: string;
-            link?: string;
-            borderColor?: string
+            borderColor?: string;
+            link?: any;
           }) => {
+            console.log(content);
             setSelectionPromptOn(false);
             if (content === null) return;
             list.forEach((value, index) => {
@@ -71,7 +72,7 @@ function Board() {
                   />
                 ) : content.contentType === "youtube" ? (
                   <ReactPlayer
-                    url={content.link}
+                    url={content.link.link}
                     style={{
                       maxWidth: "80%",
                       display: "float",
