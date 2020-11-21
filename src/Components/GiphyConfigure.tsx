@@ -10,9 +10,8 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import axios from "axios";
-import ReactPlayer from "react-player";
 import { v4 } from "uuid";
-import { queryAllByLabelText } from "@testing-library/react";
+
 
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
@@ -83,7 +82,7 @@ export default function GiphyConfigure(props: {
               active={index === activeIndex}
               onClick={() => {
                 setActiveIndex(index);
-                props.onDone(results[index]);
+                props.onDone(value.url);
               }}
               style={{
                 color: index === activeIndex ? "#FFF" : "#000",

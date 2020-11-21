@@ -94,21 +94,8 @@ function Board() {
                     allow="encrypted-media"
                   ></iframe>
                 ) : content.contentType === "giphy" ? (
-                  <div
-                    style={{
-                      backgroundColor: content.backgroundColor,
-                      color: content.color,
-                      width: "100%",
-                      paddingTop: "50%",
-                      paddingBottom: "50%",
-                      borderRadius: "50%",
-                      textAlign: "center",
-                      lineHeight: "100%",
-                      border: "1px solid #69b1bf",
-                    }}
-                  >
-                    GIPHY
-                  </div>
+                  <img src={content.link} style={{ width: "100%", height: "100%"}}>
+                  </img>
                 ) : (
                   <div>ERROR</div>
                 ),
