@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import ReactPlayer from "react-player";
 import { v4 } from "uuid";
+import { queryAllByLabelText } from "@testing-library/react";
 
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
@@ -27,7 +28,7 @@ export default function GiphyConfigure(props: {
       "giphy/search?query=" +
       encodeURIComponent(query);
     axios.get(url).then((res) => {
-      setResults(res.data.videos.map((a: any) => a.link));
+      setResults(res.data.result);
     });
   }
   return (
@@ -57,7 +58,7 @@ export default function GiphyConfigure(props: {
                 >
                   <Button
                     style={{ backgroundColor: "black" }}
-                    type="submit"
+                    type="button"
                     size="lg"
                     onClick={() => handleSearch(query)}
                   >
@@ -90,15 +91,10 @@ export default function GiphyConfigure(props: {
                 borderColor: index === activeIndex ? "#000" : "#C0C0C0",
               }}
             >
-              <div
-                style={{
-                  fontSize: "1.5em",
-                  fontWeight: "bold",
-                }}
-              >
-                {value[0]}
-              </div>
-              <div>{value[1]}</div>
+              <div>{value.title}</div>
+              <img src={value.url} style={{ width: "80%", height: "80%"}}>
+              </img>
+              
             </ListGroup.Item>
           );
         })}
