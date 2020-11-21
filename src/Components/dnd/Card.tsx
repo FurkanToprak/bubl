@@ -23,12 +23,6 @@ export default function Card(props: any) {
   );
 }
 
-// This was copied and adapted from react-dnd sortable example: https://react-dnd.github.io/react-dnd/examples/sortable/simple
-// Even though we are working with a grid, I decided to keep the items sorted as a list,
-// in order to avoid problems with different screen sizes and sorting.
-//
-// This function makes sure the `onDrop` action is only triggered after
-// the mouse has crossed half of the item`s height or width.
 const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
   return (otherItem: any, monitor: any) => {
     const dragIndex = otherItem.index;
@@ -80,7 +74,8 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
 
 const GridItemWrapper = styled.div`
   width: auto;
-  min-width: 300px;
+  min-width: 240px;
+  min-height: 240px;
   line-height: 1.2em;
   word-wrap: break-word;
   user-select: none;

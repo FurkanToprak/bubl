@@ -11,7 +11,7 @@ import { v4 } from "uuid";
 import Bubble from "./Bubble";
 
 interface CardMetadata {
-  id: number;
+  id: string;
   index: number;
   content: any;
   contentType: "bubble" | "spotify" | "youtube" | "giphy";
@@ -26,7 +26,7 @@ function sortItems(a: CardMetadata, b: CardMetadata) {
 function Board() {
   const [list, setList] = useState(initialItems);
   const [selectionPromptOn, setSelectionPromptOn] = useState(false);
-  const onDrop = (firstItemId: number, secondItemId: number) => {
+  const onDrop = (firstItemId: string, secondItemId: string) => {
     let newList = [...list];
     let firstItem = newList.find((i) => i.id === firstItemId);
     let secondItem = newList.find((i) => i.id === secondItemId);
@@ -34,6 +34,8 @@ function Board() {
     const firstIndex = firstItem.index;
     firstItem.index = secondItem.index;
     secondItem.index = firstIndex;
+    console.log(list);
+    console.log(newList);
     setList(newList);
   };
 
@@ -59,7 +61,7 @@ function Board() {
               ++list[index].index;
             });
             list.splice(0, 0, {
-              id: 0,
+              id: v4(),
               index: 0,
               contentType: content.contentType,
               content:
@@ -75,6 +77,7 @@ function Board() {
                     url={content.link.link}
                     style={{
                       maxWidth: "80%",
+                      maxHeight: "80%",
                       display: "float",
                       margin: "auto",
                     }}
@@ -89,7 +92,7 @@ function Board() {
                     allow="encrypted-media"
                   ></iframe>
                 ) : content.contentType === "giphy" ? (
-                  <img src={content.link} style={{ width: "100%", height: "100%"}}>
+                  <img src={content.link} alt={`item ${v4()}`} style={{ width: "80%", height: "80%"}}>
                   </img>
                 ) : (
                   <div>ERROR</div>
