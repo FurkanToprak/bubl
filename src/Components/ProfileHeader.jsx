@@ -19,13 +19,15 @@ function ProfileHeader() {
       }}>
           <div>
                 <img style={{
+                    height: 200,
+                    width: "auto",
                     paddingTop: 20,
                     paddingBottom: 20,
                     display: "block",
                     marginLeft: "auto",
                     marginRight: "auto",
                     borderRadius: "50%"
-                }} alt={`${name}'s profile`} src={require("../Media/placeholder.png")}/>
+                }} alt={`${name}'s profile`} src={currentUser.photoURL}/>
           </div>
           <div style={{
               textAlign: 'center',
