@@ -49,8 +49,6 @@ function Board() {
         --newList[listIndex].index;
       }
     });
-    console.log(list);
-    console.log(newList);
     setList(newList);
   };
 
