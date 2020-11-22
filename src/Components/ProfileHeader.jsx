@@ -31,7 +31,7 @@ function ProfileHeader() {
               textAlign: 'center',
               fontSize: "2em",
           }}>
-              {name}
+              <div style={{ fontWeight: "bold"}}>{name}</div>
               {
                 userData ? <div>{userData.bio}</div> :
                 <div></div>
