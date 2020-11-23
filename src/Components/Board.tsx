@@ -143,7 +143,7 @@ function Board() {
                 key={item.id}
                 item={item}
                 onDrop={onDrop}
-                height={item.contentType === "bubble" ? 300 : undefined}
+                height={300}
                 onDelete={() => onDelete(index)}
               >
                 {buildContent(item.contentType, item.content)}

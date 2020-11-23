@@ -93,8 +93,8 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
 
 const GridItemWrapper = styled.div`
   width: auto;
-  min-width: 240px;
-  min-height: 240px;
+  min-width: 300px;
+  height: 300px;
   word-wrap: break-word;
   user-select: none;
   box-sizing: border-box;
