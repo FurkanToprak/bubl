@@ -19,7 +19,7 @@ export default function Card(props: any) {
         type="button"
         style={{
           textAlign: "center",
-          backgroundColor: "red",
+          backgroundColor: "#69B1BF",
           color: "#fff",
           width: 30,
           height: 30,

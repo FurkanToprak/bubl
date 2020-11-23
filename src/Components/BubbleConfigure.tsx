@@ -73,8 +73,9 @@ export default function BubbleConfigure(props: {
           {selected === 2 ? "Border" : selected === 1 ? "Background" : "Text"}
         </Button>
         <Overlay target={target.current} show={showTip} placement="right">
-          <Tooltip id="overlay">
-            Click to set {selected === 2 ? "border" : selected === 0 ? "background" : ""} color
+          <Tooltip id="overlay" style={{ fontSize: "1.5em"}}>
+            <div>Click to set {selected === 2 ? "border" : selected === 0 ? "background" : ""} color.</div>
+            <div><i>Be sure to be color-blind friendly! <a target="_blank" href="https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40">Here's a guide!</a></i></div>
           </Tooltip>
         </Overlay>
       </div>
@@ -92,4 +93,3 @@ export default function BubbleConfigure(props: {
     </div>
   );
 }
-//https://davidmathlogic.com/colorblind/#%23D81B60-%231E88E5-%23FFC107-%23004D40
