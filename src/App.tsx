@@ -8,6 +8,7 @@ import SettingsModal from "./Components/SettingsModal";
 import { AuthProvider } from "./Auth";
 import BublNavbar from "./Components/BublNavbar";
 import PrivateRoute from "./PrivateRoute.jsx";
+import View from "./Pages/View";
 
 function App() {
   const [settings, toggleSettings] = useState(false);
@@ -35,6 +36,7 @@ function App() {
                 color: "#FFFFFF",
                 fontSize: "3em"
               }}
+              href="/"
             >
               bubl
           </Navbar.Brand>
@@ -46,6 +48,7 @@ function App() {
             <Route path="/search">
               <Search />
             </Route>
+            <Route exact path="/b/:bubl" component={View} />
             <Route path="/*"><LogIn /></Route>
           </Switch>
         </BrowserRouter>
