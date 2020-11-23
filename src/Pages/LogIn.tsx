@@ -80,6 +80,8 @@ export default function LogIn() {
                               process.env.REACT_APP_BACKEND_URL + "create-user",
                               {
                                 uuid: result.user.uid,
+                                name: result.user.displayName,
+                                profile_image: result.user.photoURL,
                               }
                             );
                           });
