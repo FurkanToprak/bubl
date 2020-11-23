@@ -11,13 +11,13 @@ import {
   Card,
 } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import axios from 'axios';
-import { AuthContext } from '../Auth';
+import axios from "axios";
+import { AuthContext } from "../Auth";
 
 function Search() {
   const { currentUser } = useContext(AuthContext);
   const [searchRes, setSearchRes] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   function handleSearch(searchQ: string) {
     const url =
@@ -25,15 +25,16 @@ function Search() {
     axios.get(url).then((res) => {
       if (res.data.result.length > 0) {
         setSearchRes(res.data.result);
-      }
-      else {
-        setSearchRes([{
-          profile_image: '',
-          name: "no results found.",
-          bio: '',
-          google_id: '',
-          bubl_name: 'DO NOT PROCEED'
-        }])
+      } else {
+        setSearchRes([
+          {
+            profile_image: "",
+            name: "no results found.",
+            bio: "",
+            google_id: "",
+            bubl_name: "DO NOT PROCEED",
+          },
+        ]);
       }
     });
   }
@@ -48,7 +49,12 @@ function Search() {
         search.
       </h1>
       <div>
-        <Form>
+        <Form
+          onSubmit={(e: any) => {
+            e.preventDefault();
+            handleSearch(query);
+          }}
+        >
           <Container>
             <Form.Group>
               <Row>
@@ -71,7 +77,14 @@ function Search() {
                       </Tooltip>
                     }
                   >
-                    <Button variant="primary" type="button" size="lg" onClick={() => handleSearch(query)}>
+                    <Button
+                      style={{
+                        backgroundColor: "#69B1BF"
+                      }}
+                      type="button"
+                      size="lg"
+                      onClick={() => handleSearch(query)}
+                    >
                       search.
                     </Button>
                   </OverlayTrigger>
@@ -82,11 +95,15 @@ function Search() {
         </Form>
         <Container>
           {searchRes.map((person: any) => {
-            if (currentUser !== undefined && currentUser.uid === person.google_id) {
+            if (
+              currentUser !== undefined &&
+              currentUser.uid === person.google_id
+            ) {
               return;
             }
-            if (person.bubl_name === 'DO NOT PROCEED') {
-              return <Row style={{ display: "block", marginTop: 30 }}>
+            if (person.bubl_name === "DO NOT PROCEED") {
+              return (
+                <Row style={{ display: "block", marginTop: 30 }}>
                   <Card>
                     <Card.Body>
                       <Image src={person.profile_image} thumbnail />
@@ -94,8 +111,9 @@ function Search() {
                       <Card.Text>{person.bio}</Card.Text>
                     </Card.Body>
                   </Card>
-              </Row>
-            }  
+                </Row>
+              );
+            }
             return (
               <Row style={{ display: "block", marginTop: 30 }}>
                 <NavLink to={`/b/` + person.bubl_name}>

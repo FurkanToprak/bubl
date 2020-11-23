@@ -33,7 +33,12 @@ export default function YouTubeConfigure(props: {
 
   return (
     <div style={{ marginTop: 10 }}>
-      <Form>
+      <Form
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          handleSearch(query);
+        }}
+      >
         <Container>
           <Form.Group>
             <Row>

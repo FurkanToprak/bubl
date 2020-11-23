@@ -35,12 +35,6 @@ export default function SettingsModal(props: { handleClose: () => void }) {
           <Tab tabClassName="spotify-tab" eventKey="spotify" title="Spotify">
             <SpotifyConnect />
           </Tab>
-          <Tab tabClassName="youtube-tab" eventKey="youtube" title="YouTube">
-            YouTube Stuff Here
-          </Tab>
-          <Tab tabClassName="giphy-tab" eventKey="giphy" title="Giphy">
-            Giphy Stuff Here
-          </Tab>
           <Tab tabClassName="profile-tab" eventKey="profile" title="Profile">
             <ProfileUpdateBiography setReadyToSave={setReadyToSave} bio={bio} setBio={setBio} />
           </Tab>

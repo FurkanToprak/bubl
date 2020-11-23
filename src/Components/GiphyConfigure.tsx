@@ -12,7 +12,6 @@ import {
 import axios from "axios";
 import { v4 } from "uuid";
 
-
 export default function GiphyConfigure(props: {
   onDone: (link: string) => void;
 }) {
@@ -32,7 +31,12 @@ export default function GiphyConfigure(props: {
   }
   return (
     <div style={{ marginTop: 10 }}>
-      <Form>
+      <Form
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          handleSearch(query);
+        }}
+      >
         <Container>
           <Form.Group>
             <Row>
@@ -59,7 +63,10 @@ export default function GiphyConfigure(props: {
                     style={{ backgroundColor: "black" }}
                     type="button"
                     size="lg"
-                    onClick={() => handleSearch(query)}
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      handleSearch(query);
+                    }}
                   >
                     search.
                   </Button>
@@ -91,9 +98,11 @@ export default function GiphyConfigure(props: {
               }}
             >
               <div>{value.title}</div>
-              <img src={value.url} alt={`giphy result ${index}`} style={{ width: "80%", height: "80%" }}>
-              </img>
-
+              <img
+                src={value.url}
+                alt={`giphy result ${index}`}
+                style={{ width: "80%", height: "80%" }}
+              ></img>
             </ListGroup.Item>
           );
         })}
