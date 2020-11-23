@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import AddButton from "./AddButton";
 import Grid from "./Grid";
 import Card from "./dnd/Card";
@@ -9,7 +9,6 @@ import SelectorModal from "./SelectorModal";
 import ReactPlayer from "react-player";
 import { v4 } from "uuid";
 import Bubble from "./Bubble";
-import { AuthContext } from '../Auth';
 import axios from "axios";
 import { connect } from "http2";
 
@@ -20,19 +19,16 @@ interface CardMetadata {
   contentType: "bubble" | "spotify" | "youtube" | "giphy";
 }
 
-const initialItems: CardMetadata[] = [];
-
 function sortItems(a: CardMetadata, b: CardMetadata) {
   return a.index - b.index;
 }
 
 
-function Board() {
-  const { currentUser } = useContext(AuthContext);
+function Board(props: any) {
   const [list, setList] = useState([]);
   useEffect(() => {
     const url =
-      process.env.REACT_APP_BACKEND_URL + "users/board/get?uuid=" + currentUser.uid;
+      process.env.REACT_APP_BACKEND_URL + "users/board/get?uuid=" + props.currentUser.uid;
     axios.get(url).then((res) => {
       setList(res.data.items);
       console.log(res.data);
@@ -71,7 +67,7 @@ function Board() {
     axios.post(
       process.env.REACT_APP_BACKEND_URL + "users/board/update",
       {
-        uuid: currentUser.uid,
+        uuid: props.currentUser.uid,
         items: newList,
       }
     );
@@ -130,9 +126,9 @@ function Board() {
           }}
         />
       )}
-      <div style={{ paddingTop: 20, paddingBottom: 20 }}>
+      {props.editMode && <div style={{ paddingTop: 20, paddingBottom: 20 }}>
         <AddButton onAdd={onAdd} />
-      </div>
+      </div>}
       <DndProvider backend={MultiBackend as any} options={HTML5toTouch}>
         <Grid>
           {list.sort(sortItems).map((item, index) => {
@@ -142,12 +138,14 @@ function Board() {
               <Card
                 key={item.id}
                 item={item}
-                onDrop={onDrop}
-                height={item.contentType === "bubble" ? 300 : undefined}
+                onDrop={props.editMode ? onDrop : () => {}}
+                height={300}
                 onDelete={() => onDelete(index)}
+                editMode={props.editMode}
               >
                 {buildContent(item.contentType, item.content)}
-              </Card>);
+              </Card>
+              );
           })}
         </Grid>
       </DndProvider>

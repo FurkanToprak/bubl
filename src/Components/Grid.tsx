@@ -36,6 +36,6 @@ const adjustGridItemsHeight = (grid: any) => {
 const GridWrapper = styled.div `
   display: grid;
   grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
-  grid-auto-rows: 180px;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  grid-auto-rows: 300px;
 `;
