@@ -21,9 +21,16 @@ function Search() {
     process.env.REACT_APP_BACKEND_URL + "users/search?query=" + searchQ;
   axios.get(url).then((res) => {
     if (res.data.result.length > 0) {
-
+      setSearchRes(res.data.result);
+    } 
+    else {
+      setSearchRes([{
+        profile_image: '',
+        name: "no results found.",
+        bio: '',
+        google_id: 'DO NOT PROCEED'
+      }])
     }
-    setSearchRes(res.data.result);
   });
   }
 
