@@ -15,7 +15,7 @@ export default function Card(props: any) {
   const opacity = isDragging ? 0 : 1;
   return (
     <GridItemWrapper {...p} ref={ref} style={{ opacity, height: props.height }}>
-      <Button
+      {props.editMode && <Button
         type="button"
         style={{
           textAlign: "center",
@@ -36,7 +36,7 @@ export default function Card(props: any) {
         }}
       >
         X
-      </Button>
+      </Button>}
       {children}
     </GridItemWrapper>
   );
@@ -92,7 +92,6 @@ const createDragHoverCallback = (ref: any, currentItem: any, onDrop: any) => {
 };
 
 const GridItemWrapper = styled.div`
-  width: auto;
   min-width: 300px;
   height: 300px;
   word-wrap: break-word;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   Form,
   Button,
@@ -7,10 +7,37 @@ import {
   Col,
   OverlayTrigger,
   Tooltip,
+  Image,
   Card,
 } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import axios from 'axios';
+import { AuthContext } from '../Auth';
 
 function Search() {
+  const { currentUser } = useContext(AuthContext);
+  const [searchRes, setSearchRes] = useState([]);
+  const [query, setQuery] = useState('');
+
+  function handleSearch(searchQ: string) {
+    const url =
+      process.env.REACT_APP_BACKEND_URL + "users/search?query=" + searchQ;
+    axios.get(url).then((res) => {
+      if (res.data.result.length > 0) {
+        setSearchRes(res.data.result);
+      }
+      else {
+        setSearchRes([{
+          profile_image: '',
+          name: "no results found.",
+          bio: '',
+          google_id: '',
+          bubl_name: 'DO NOT PROCEED'
+        }])
+      }
+    });
+  }
+
   return (
     <div>
       <h1
@@ -30,6 +57,8 @@ function Search() {
                     size="lg"
                     type="text"
                     placeholder="search for friends."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                   />
                 </Col>
                 <Col md="auto">
@@ -42,7 +71,7 @@ function Search() {
                       </Tooltip>
                     }
                   >
-                    <Button variant="primary" type="submit" size="lg">
+                    <Button variant="primary" type="button" size="lg" onClick={() => handleSearch(query)}>
                       search.
                     </Button>
                   </OverlayTrigger>
@@ -52,17 +81,35 @@ function Search() {
           </Container>
         </Form>
         <Container>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i: number) => (
-            <Row style={{ display: "block", marginTop: 30 }}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>Result {i}</Card.Title>
-                  <Card.Subtitle>Result {i}</Card.Subtitle>
-                  <Card.Text>Result {i}</Card.Text>
-                </Card.Body>
-              </Card>
-            </Row>
-          ))}
+          {searchRes.map((person: any) => {
+            if (currentUser !== undefined && currentUser.uid === person.google_id) {
+              return;
+            }
+            if (person.bubl_name === 'DO NOT PROCEED') {
+              return <Row style={{ display: "block", marginTop: 30 }}>
+                  <Card>
+                    <Card.Body>
+                      <Image src={person.profile_image} thumbnail />
+                      <Card.Title>{person.name}</Card.Title>
+                      <Card.Text>{person.bio}</Card.Text>
+                    </Card.Body>
+                  </Card>
+              </Row>
+            }  
+            return (
+              <Row style={{ display: "block", marginTop: 30 }}>
+                <NavLink to={`/b/` + person.bubl_name}>
+                  <Card>
+                    <Card.Body>
+                      <Image src={person.profile_image} thumbnail />
+                      <Card.Title>{person.name}</Card.Title>
+                      <Card.Text>{person.bio}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </NavLink>
+              </Row>
+            );
+          })}
         </Container>
       </div>
     </div>
