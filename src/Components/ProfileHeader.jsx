@@ -1,17 +1,14 @@
-import React, { useContext } from "react";
-import { AuthContext } from '../Auth';
+import React from "react";
 import { firestore } from "../firebase/test_cred";
 import "firebase/firestore";
 import {
-  useCollectionData,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
 
-function ProfileHeader() {
-    const { currentUser } = useContext(AuthContext);
-    const name = currentUser.displayName;
+function ProfileHeader(props) {
+    const name = props.currentUser.displayName;
     const [userData] = useDocumentData(
-      firestore.collection("users").doc(currentUser.uid)
+      firestore.collection("users").doc(props.currentUser.uid)
     );
     return (
       <div style={{
@@ -27,7 +24,7 @@ function ProfileHeader() {
                     marginLeft: "auto",
                     marginRight: "auto",
                     borderRadius: "50%"
-                }} alt={`${name}'s profile`} src={currentUser.photoURL}/>
+                }} alt={`${name}'s profile`} src={props.currentUser.photoURL}/>
           </div>
           <div style={{
               textAlign: 'center',
