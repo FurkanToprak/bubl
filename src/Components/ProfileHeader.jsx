@@ -35,7 +35,7 @@ function ProfileHeader() {
           }}>
               <div style={{ fontWeight: "bold"}}>{name}</div>
               {
-                userData ? <div>{userData.bio}</div> :
+                userData ? <div><i>{userData.bio}</i></div> :
                 <div></div>
               }
           </div>
