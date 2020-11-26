@@ -1,6 +1,7 @@
 # What
 * This is a pinterest-type app built for a Programming Studio Class.
-
+* This project is hosted through herokum at [https://bubl-board.herokuapp.com/](https://bubl-board.herokuapp.com/)
+* View the backend [here](https://github.com/dylantheriot/bubl-backend)
 # Who
 
 * Credit to Dylan Theriot, Alex Wu, and Shreya Nakkala for their contributions.
